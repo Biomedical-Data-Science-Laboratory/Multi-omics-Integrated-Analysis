@@ -28,18 +28,37 @@ This study integrated gene expression data, microRNA expression data, and protei
 
 ### 2) Cluster Analysis
 ![cluster_anaylsis](https://github.com/user-attachments/assets/3f5ac25b-7c0b-4195-9e08-54fa75e7518a)
-* Cluster analysis was performed to generate new clusters using information on factors(factor 3, 6, 13) significantly associated with survival. Prior to this, the gap statistic and silhouette score were used to select the optimal k. Except for k=1, k=3 was chosen as it yielded the highest gap statistic, and it also showed a high silhouette score.
-* 
+* To create new clusters using information from factors 3, 6, and 13, which were significantly associated with survival, we used the gap statistic and silhouette score to select the optimal k before performing cluster analysis. We selected k=3, which yielded the highest gap statistic, and k=3 also showed a high silhouette score.
+* The three clusters were designated as MOG (Multi Omics Group) 1, 2, and 3. Dimension reduction was performed using umap to visualize the clusters in two dimensions and confirm their patterns.
+* First, the existing PAM50 subtypes showed unclear clustering patterns, while the groups divided into MOG1, 2, and 3 formed distinct clusters to some extent. The classification into MOG1 and MOG2 was particularly clear.
+* The bar graph confirmed that PAM50 subtypes were distributed across MOG1, MOG2, and MOG3. However, the Basal subtype had the highest proportion in MOG2, while the Luminal A subtype constituted the majority in MOG1.
 
 ### 3) Survival Analysis
 ![survival_anaylsis](https://github.com/user-attachments/assets/082dc5e2-4291-4c5e-a9e9-2cc593e0b15b)
+* We then performed survival analysis to determine if there were differences in prognosis among the MOG groups. For comparison, we also conducted survival analysis for the PAM50 subtype.
+* Among the three groups, MOG1 showed the best prognosis.
+* When performing pairwise statistical tests, we found significant prognostic differences between the MOG1-2 and MOG1-3 pairs, whereas the existing PAM50 subtype showed weaker prognostic association.
+* **These results demonstrate that multi-omics integration can complement and explain prognostic differences that are difficult to account for using only the existing PAM50-based subtypes, emphasizing the necessity of multi-omics integration**. 
+* Subsequent analyses focused on MOG1-2 and MOG1-3, where significant prognostic differences were evident in survival curves.
 
 ### 4) Multi-omics Signature Anaylsis
 ![MO_signature_analysis](https://github.com/user-attachments/assets/efd6801b-65ea-4e88-886b-fe33e4429cde)
-
+* We employed the *DIABLO* framework from mixomics to identify key features exhibiting expression differences between the two groups showing differential prognosis.
+* *DIABLO* is a supervised learning-based framework that learns covariate relationships across different omics datasets to identify features that effectively distinguish specific groups.
+> When the input X is provided as a list of each omics data frame and the group class labels are provided in Y, training proceeds using the Sparse Partial Least Squares Discriminant Analysis(sPLS-DA) algorithm. This algorithm creates a weighted sum of the features from each omics in X to maximize the covariance with Y. This process defines common latent components, similar to dimension reduction, selecting key features most contributing to group differentiation across each omics while also accounting for correlations between omics.
+> During training, 10-fold cross-validation was used to determine the optimal number of features for each omics dataset.
+* The circular plot allows for intuitive confirmation of which features show high expression in which groups and their associations with other omics features.
+* We focused on features in the network plot that showed strong correlations, with all three omics above 0.8.
+* We identified connections between ACKR1 (RNA-seq), PLK1 (Protein), and hsa-mir-301a/hsa-mir-210 (miRNA) at the feature marked with a red triangle (derived from features common to both omics). 
+* These features have been reported in previous breast cancer studies to be associated with prognosis. Consistent with prior research, ACKR1 expression was low and PLK1 and hsa-mir-301a, 210 expression was high in MOG2 and MOG3, which have poorer prognosis.
+* **These results indicate that the survival differences observed between MOG groups defined by MOFA2 reflect consistent biological differences at the molecular level, suggesting a multi-layered regulatory mechanism that is difficult to capture with a single omics approach. In conclusion, the analysis using DIABLO effectively demonstrates the characteristics of multi-omics and suggests that the association between ACKR1–PLK1–hsa-mir-301a (hsa-mir-210) could serve as a clinically useful indicator in multi-omics integrated studies related to breast cancer prognosis.**
+  
 ### 5) GSEA Anaylsis
 ![GSEA_C5](https://github.com/user-attachments/assets/8548b86f-79c8-4e89-8a5e-a96b98b96ab7)
 ![GSEA_C2](https://github.com/user-attachments/assets/1cfa9dd9-3334-4b06-a270-bfae7879a376)
+* To identify which pathways were active in the two groups showing different prognoses, GSEA analysis was performed using the C5 and C2 databases from MsigDB. Enrichment analysis revealed that cell proliferation-related pathways were enriched in MOG2 and MOG3, while immune-related pathways were enriched in MOG1.
+*Indeed, multiple cancer studies report that higher cell division and cell cycle activity correlates with faster tumor growth and increased metastasis potential, leading to poorer prognosis. The results in MOG2 and MOG3, which exhibit poorer prognosis, are consistent with this finding.
+* **This provides not only a crucial molecular basis explaining the survival differences observed in MOFA2 but also presents a biological directionality consistent with the multi-omics signature.**
 
 ## Conclusion
 * It demonstrates that multi-omics integration can compensate for prognostic heterogeneity within subtypes that are difficult to capture using existing PAM50-based subtypes.
