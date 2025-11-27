@@ -30,3 +30,12 @@ rna_mirna_protein_mofa_obj <- prepare_mofa(
 
 rna_mirna_protein_outfile <- file.path(getwd(),"rna_mirna_protein_model.hdf5")
 rna_mirna_protein_mofa_trained <- run_mofa(rna_mirna_protein_mofa_obj, rna_mirna_protein_outfile, use_basilisk = TRUE)
+
+# Visualization
+
+# Data overview
+plot_data_overview(rna_mirna_protein_mofa_trained)
+# Distribution heatmap
+plot_variance_explained(rna_mirna_protein_mofa_trained)
+# Bar plot
+plot_variance_explained(rna_mirna_protein_mofa_trained, x="group", y="factor", plot_total = T)
