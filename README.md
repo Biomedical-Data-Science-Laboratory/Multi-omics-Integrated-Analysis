@@ -45,8 +45,9 @@ This study integrated gene expression data, microRNA expression data, and protei
 ![MO_signature_analysis](https://github.com/user-attachments/assets/efd6801b-65ea-4e88-886b-fe33e4429cde)
 * We employed the *DIABLO* framework from mixomics to identify key features exhibiting expression differences between the two groups showing differential prognosis.
 * *DIABLO* is a supervised learning-based framework that learns covariate relationships across different omics datasets to identify features that effectively distinguish specific groups.
-> When the input X is provided as a list of each omics data frame and the group class labels are provided in Y, training proceeds using the Sparse Partial Least Squares Discriminant Analysis(sPLS-DA) algorithm. This algorithm creates a weighted sum of the features from each omics in X to maximize the covariance with Y. This process defines common latent components, similar to dimension reduction, selecting key features most contributing to group differentiation across each omics while also accounting for correlations between omics.
-> During training, 10-fold cross-validation was used to determine the optimal number of features for each omics dataset.
+> 1. When the input X is provided as a list of each omics data frame and the group class labels are provided in Y, training proceeds using the Sparse Partial Least Squares Discriminant Analysis(sPLS-DA) algorithm. This algorithm creates a weighted sum of the features from each omics in X to maximize the covariance with Y.
+> 2. This process defines common latent components, similar to dimension reduction, selecting key features most contributing to group differentiation across each omics while also accounting for correlations between omics.
+> 3. During training, 10-fold cross-validation was used to determine the optimal number of features for each omics dataset.
 * The circular plot allows for intuitive confirmation of which features show high expression in which groups and their associations with other omics features.
 * We focused on features in the network plot that showed strong correlations, with all three omics above 0.8.
 * We identified connections between ACKR1 (RNA-seq), PLK1 (Protein), and hsa-mir-301a/hsa-mir-210 (miRNA) at the feature marked with a red triangle (derived from features common to both omics). 
