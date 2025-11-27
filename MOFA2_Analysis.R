@@ -33,9 +33,9 @@ rna_mirna_protein_mofa_trained <- run_mofa(rna_mirna_protein_mofa_obj, rna_mirna
 
 # Visualization
 
-# Data overview
+## Data overview
 plot_data_overview(rna_mirna_protein_mofa_trained)
-# Distribution heatmap
+## Distribution heatmap
 plot_variance_explained(rna_mirna_protein_mofa_trained)
-# Bar plot
+##Bar plot
 plot_variance_explained(rna_mirna_protein_mofa_trained, x="group", y="factor", plot_total = T)
