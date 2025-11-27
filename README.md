@@ -15,15 +15,21 @@ This study integrated gene expression data, microRNA expression data, and protei
 * Each factor assigns weights to samples and features, representing complex data as a few large, easily understandable axes.
 ![mofa](https://github.com/user-attachments/assets/5e9cbab6-ab26-4fd7-a64f-00e60fd3da6c)
 * MOFA2 decomposes various omics data as shown in the figure.
-* Since Z and W can't accurately reproduce the actual observed values, ε is added to model them as probabilistic noise.
+* Since *Z* and *W* can't accurately reproduce the actual observed values, ε is added to model them as probabilistic noise.
 * MOFA2 performs inference through *stochastic variational Bayesian* methods, which assume prior joint distributions for unobserved variables within the model.
   
 ## Result
 ### 1) MOFA2 Factor & Cox PH Model  
 ![mofa_result](https://github.com/user-attachments/assets/98995f06-a1fe-48aa-84e7-337fb4686931)
+* MOFA2 captures the patterns and variability of each omics dataset, compressing them into 15 latent factors and presenting the results as a scatter heatmap and bar graph.
+* The heatmap shows the proportion of *Z* * *W* variance explained by each factor across all datasets, while the bar graph displays the proportion of total variance explained by each factor for each omics type.
+* RNA-seq was confirmed to explain the largest variance. Furthermore, the three omics datasets collectively explain a significant portion of variance within each factor, indicating the presence of **shared biological signals** across the multi-omics data.
+* To assess the prognostic value of MOFA2, a multivariate Cox proportional hazards model was applied using 15 factors. The forest plot showing hazard ratios and confidence intervals revealed that 87 events occurred among the 481 patients, confirming that **factor 3, factor 6, and factor 13** were significantly associated with survival(p<0.05).
 
 ### 2) Cluster Analysis
 ![cluster_anaylsis](https://github.com/user-attachments/assets/3f5ac25b-7c0b-4195-9e08-54fa75e7518a)
+* Cluster analysis was performed to generate new clusters using information on factors(factor 3, 6, 13) significantly associated with survival. Prior to this, the gap statistic and silhouette score were used to select the optimal k. Except for k=1, k=3 was chosen as it yielded the highest gap statistic, and it also showed a high silhouette score.
+* 
 
 ### 3) Survival Analysis
 ![survival_anaylsis](https://github.com/user-attachments/assets/082dc5e2-4291-4c5e-a9e9-2cc593e0b15b)
